@@ -1,6 +1,7 @@
 <div style="padding: 0px 20px;">
+  <p *ngIf="(loading$ | async)">Cargando...</p>
   <p-messages></p-messages>
-  <p-table [value]="movies" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['title','genre']">
+  <p-table [value]="movies$ | async" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['title','genre']">
     <ng-template pTemplate="caption">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2 class="m-0">Movies</h2>
@@ -37,6 +38,7 @@
           <td>{{ movie.year }}</td>
           <td>{{movie.duration}}</td>
           <td style="display: flex; gap: 10px;">
+            <p-button icon="pi pi-eye" styleClass="p-button-help" (click)="redirectToReadForm(movie.id)"></p-button>
             <p-button icon="pi pi-pencil" styleClass="p-button-warning" (click)="redirectToEditForm(movie.id)"></p-button>
             <p-button icon="pi pi-times" styleClass="p-button-danger" (click)="deleteMovie(movie)"></p-button>
           </td>

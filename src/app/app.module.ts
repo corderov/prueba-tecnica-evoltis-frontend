@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
+//Redux
+import { StoreModule } from '@ngrx/store';
+
 //Components
 import { MoviesComponent } from './components/movies/movies.component';
 import { MovieFormComponent } from './components/movie-form/movie-form.component';
@@ -19,6 +22,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessagesModule } from 'primeng/messages';
+import { moviesReducer } from './state/reducers/movies.reducers';
+import { ROOT_REDUCERS } from './state/app.state';
+
 
 
 
@@ -35,6 +41,9 @@ import { MessagesModule } from 'primeng/messages';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+
+    //Redux
+    StoreModule.forRoot(ROOT_REDUCERS),
     
     TableModule,
     ButtonModule,

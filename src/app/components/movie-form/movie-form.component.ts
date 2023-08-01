@@ -12,9 +12,9 @@ import { MoviesService } from 'src/app/services/movies.service';
   providers: [MoviesService, MessageService]
 })
 export class MovieFormComponent {
+  
   movieId!: number;
   movieForm!: FormGroup;
-
   constructor(private formBuilder: FormBuilder, private moviesService: MoviesService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) {}
 
 
@@ -31,6 +31,8 @@ export class MovieFormComponent {
       language: [''],
       image: ['']
     });
+
+  
 
     //Obtengo id que paso por la ruta
     this.route.paramMap.subscribe(params => {
