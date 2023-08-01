@@ -1,54 +1,56 @@
-<div class="custom-button">
-  <!-- Botón "Back" para regresar a la página anterior -->
-  <p-button type="button" icon="pi pi-arrow-left" (click)="goBack()" styleClass="p-button-secondary"></p-button>
+<div class="div-container">
+  <div class="custom-button">
+    <p-button type="button" icon="pi pi-arrow-left" (click)="goBack()" styleClass="p-button-secondary"></p-button>
+  </div>
+  <p-card header="{{ movieId ? 'Editar Pelicula' : 'Nueva Pelicula' }}" class="custom-card">
+    <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="custom-form">
+      <div class="custom-p-field">
+        <label for="title">Titulo*</label>
+        <input type="text" id="title" pInputText class="p-inputtext" placeholder="Ingrese el titulo" formControlName="title" required>
+
+        </div>
+    
+      <div class="custom-p-field">
+        <label for="genre">Genero*</label>
+        <input type="text" id="genre" pInputText class="p-inputtext" placeholder="Ingrese el genero" formControlName="genre" required>
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="director">Director*</label>
+        <input type="text" id="director" pInputText class="p-inputtext" placeholder="Ingrese el director" formControlName="director" required>
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="year">Año*</label>
+        <p-inputNumber id="year" [useGrouping]="false" placeholder="Ingrese el año"  formControlName="year"></p-inputNumber>
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="synopsis">Sinopsis</label>
+        <textarea id="synopsis" pInputTextarea [autoResize]="true" cols="30"  placeholder="Ingrese la sinopsis"  formControlName="synopsis"></textarea>
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="duration">Duracion*</label>
+        <p-inputNumber id="duration" [useGrouping]="false" placeholder="Ingrese la duracion"  formControlName="duration" ></p-inputNumber>
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="country">Pais</label>
+        <input type="text" id="country" pInputText class="p-inputtext" placeholder="Ingrese el pais"  formControlName="country">
+      </div>
+    
+      <div class="custom-p-field">
+        <label for="language">Lenguaje</label>
+        <input type="text" id="language" pInputText class="p-inputtext" placeholder="Ingrese el lenguaje"  formControlName="language">
+      </div>
+    
+      <p-footer style="align-self: flex-end;">
+        <button type="submit" pButton label="{{ movieId ? 'Guardar Cambios' : 'Crear' }}" [disabled]="!movieForm.valid" ></button>
+      </p-footer>
+    </form>
+    <p-messages></p-messages>
+  </p-card>
+  
 </div>
-<p-card header="{{ movieId ? 'Editar Pelicula' : 'Nueva Pelicula' }}" class="custom-card">
-  
-  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="custom-form">
-    <div class="custom-p-field">
-      <label for="title">Titulo*</label>
-      <input type="text" id="title" pInputText class="p-inputtext" formControlName="title" required>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="genre">Genero*</label>
-      <input type="text" id="genre" pInputText class="p-inputtext" formControlName="genre" required>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="director">Director*</label>
-      <input type="text" id="director" pInputText class="p-inputtext" formControlName="director" required>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="year">Año*</label>
-      <p-inputNumber id="year" [useGrouping]="false"  formControlName="year"></p-inputNumber>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="synopsis">Sinopsis</label>
-      <textarea id="synopsis" pInputTextarea [autoResize]="true" cols="30"  formControlName="synopsis"></textarea>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="duration">Duracion*</label>
-      <p-inputNumber id="duration" [useGrouping]="false" formControlName="duration" ></p-inputNumber>
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="country">Pais</label>
-      <input type="text" id="country" pInputText class="p-inputtext" formControlName="country">
-    </div>
-  
-    <div class="custom-p-field">
-      <label for="language">Lenguaje</label>
-      <input type="text" id="language" pInputText class="p-inputtext" formControlName="language">
-    </div>
-  
-    <p-footer style="align-self: flex-end;">
-      <button type="submit" pButton label="{{ movieId ? 'Guardar Cambios' : 'Crear' }}" [disabled]="!movieForm.valid" ></button>
-    </p-footer>
-  </form>
-  <p-messages></p-messages>
-</p-card>
 

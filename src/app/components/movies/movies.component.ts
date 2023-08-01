@@ -12,7 +12,6 @@ import { MoviesService } from 'src/app/services/movies.service';
 })
 export class MoviesComponent implements OnInit {
   movies: Movie[] = []
-  displayAddModal: boolean = false
 
   constructor(private moviesService: MoviesService, private router: Router, private messageService: MessageService) {}
 
@@ -37,12 +36,7 @@ export class MoviesComponent implements OnInit {
     );
   }
 
-  showAddModal() {
-    console.log(this.displayAddModal)
-    this.displayAddModal = true
-  }
-
-  redirectToForm() {
+  redirectToAddForm() {
     this.router.navigateByUrl('/add-movie');
   }
 

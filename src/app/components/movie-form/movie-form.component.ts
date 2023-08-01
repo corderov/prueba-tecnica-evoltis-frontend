@@ -1,6 +1,6 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -12,11 +12,10 @@ import { MoviesService } from 'src/app/services/movies.service';
   providers: [MoviesService, MessageService]
 })
 export class MovieFormComponent {
-  @Input() movieId!: number;
+  movieId!: number;
   movieForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private moviesService: MoviesService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) {}
-
 
 
   ngOnInit() {
@@ -33,18 +32,18 @@ export class MovieFormComponent {
       image: ['']
     });
 
+    //Obtengo id que paso por la ruta
     this.route.paramMap.subscribe(params => {
       const movieId = Number(params.get('id'));
       if (!isNaN(movieId)) {
         this.movieId = movieId
-        this.loadMovieDetails(movieId);
+        this.getMovieById(movieId);
       }
     });
 
   }
 
-  loadMovieDetails(movieId: number) {
-
+  getMovieById(movieId: number) {
     this.moviesService.getById(movieId).subscribe((movie) => {
       this.movieForm.patchValue(movie)
     })
@@ -53,35 +52,36 @@ export class MovieFormComponent {
   onSubmit() {
     if (this.movieForm.valid) {
       const newMovie: Movie = this.movieForm.value;
-      
       if (this.movieId) {
-        // Estamos editando una película existente
-        newMovie.id = this.movieId; // Asumiendo que el ID de la película es parte del modelo "Movie"
-        this.moviesService.updateMovie(newMovie).subscribe(
-          () => {
-            this.messageService.add({severity:'success', summary:`Pelicula actualizada con exito!`});
+        //Actualizando pelicula
+        newMovie.id = this.movieId; 
+        this.moviesService.updateMovie(newMovie).subscribe({
+          next: () => {
+            this.messageService.add({severity:'success', summary:`Pelicula ${newMovie.title} actualizada con exito!`});
           },
-          (error: Error) => {
-            this.messageService.add({ severity: 'error', summary: 'Error al actualizar película' });
+          error:(error: Error) => {
+            this.messageService.add({ severity: 'error', summary: `Error al actualizar película ${newMovie.title}` });
           }
+        } 
         );
       } else {
-        // Estamos agregando una nueva película
-        this.moviesService.addMovie(newMovie).subscribe(
-          (response: Movie) => {
-            this.messageService.add({severity:'success', summary:`Pelicula creada con exito!`});
+        //Creando nueva pelicula
+        this.moviesService.addMovie(newMovie).subscribe({
+          next: (response: Movie) => {
+            this.messageService.add({severity:'success', summary:'Pelicula creada con exito!'});
             this.router.navigateByUrl('/movies')
           },
-          (error: Error) => {
+          error: (error: Error) => {
             this.messageService.add({ severity: 'error', summary: 'Error al crear película' });
           }
+        }
+          
         );
       }
     }
   }
 
-
   goBack() {
-    this.router.navigate(['/movies']);
+    this.router.navigate([".."]);
   }
 }

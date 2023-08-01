@@ -1,28 +1,32 @@
 <div style="padding: 0px 20px;">
   <p-messages></p-messages>
-  <p-table [value]="movies" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['genre']">
+  <p-table [value]="movies" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['title','genre']">
     <ng-template pTemplate="caption">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2 class="m-0">Movies</h2>
         <div class="flex align-items-center">
-            <button pButton pRipple icon="pi pi-plus" class="p-button-rounded" (click)="redirectToForm()"></button>
+            <button pButton pRipple icon="pi pi-plus" class="p-button-rounded" (click)="redirectToAddForm()"></button>
         </div>
     </div>
   </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="title" style="width:20%"><div class="flex align-items-center">
-            Titulo
-             <p-columnFilter type="text" field="title" display="menu"></p-columnFilter></div>
-            </th>
-          <th pSortableColumn="genre" style="width:20%">
-            <div class="flex align-items-center">
-             Genero
+          <th style="min-width:15rem">
+            <div style="display: flex; align-items: center;">
+              Titulo
+              <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width:15rem">
+            <div style="display: flex; align-items: center;">
+              Genero
               <p-columnFilter type="text" field="genre" display="menu"></p-columnFilter>
-          </div></th>
+            </div>
+          </th>
           <th pSortableColumn="director" style="width:20%">Director<p-sortIcon field="director"></p-sortIcon></th>
           <th pSortableColumn="year" style="width:20%">Año<p-sortIcon field="year"></p-sortIcon></th>
-          <th></th> 
+          <th pSortableColumn="duration" style="width:20%">Duracion (min)<p-sortIcon field="duration"></p-sortIcon></th>
+          <th>Acciones</th> 
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-movie>
@@ -31,6 +35,7 @@
           <td>{{ movie.genre }}</td>
           <td>{{ movie.director }}</td>
           <td>{{ movie.year }}</td>
+          <td>{{movie.duration}}</td>
           <td style="display: flex; gap: 10px;">
             <p-button icon="pi pi-pencil" styleClass="p-button-warning" (click)="redirectToEditForm(movie.id)"></p-button>
             <p-button icon="pi pi-times" styleClass="p-button-danger" (click)="deleteMovie(movie)"></p-button>
