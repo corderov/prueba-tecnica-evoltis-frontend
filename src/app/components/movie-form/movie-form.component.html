@@ -6,12 +6,12 @@
   
   <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="custom-form">
     <div class="custom-p-field">
-      <label for="title">Title*</label>
+      <label for="title">Titulo*</label>
       <input type="text" id="title" pInputText class="p-inputtext" formControlName="title" required>
     </div>
   
     <div class="custom-p-field">
-      <label for="genre">Genre*</label>
+      <label for="genre">Genero*</label>
       <input type="text" id="genre" pInputText class="p-inputtext" formControlName="genre" required>
     </div>
   
@@ -21,27 +21,27 @@
     </div>
   
     <div class="custom-p-field">
-      <label for="year">Year*</label>
+      <label for="year">Año*</label>
       <p-inputNumber id="year" [useGrouping]="false"  formControlName="year"></p-inputNumber>
     </div>
   
     <div class="custom-p-field">
-      <label for="synopsis">Synopsis</label>
+      <label for="synopsis">Sinopsis</label>
       <textarea id="synopsis" pInputTextarea [autoResize]="true" cols="30"  formControlName="synopsis"></textarea>
     </div>
   
     <div class="custom-p-field">
-      <label for="duration">Duration*</label>
+      <label for="duration">Duracion*</label>
       <p-inputNumber id="duration" [useGrouping]="false" formControlName="duration" ></p-inputNumber>
     </div>
   
     <div class="custom-p-field">
-      <label for="country">Country</label>
+      <label for="country">Pais</label>
       <input type="text" id="country" pInputText class="p-inputtext" formControlName="country">
     </div>
   
     <div class="custom-p-field">
-      <label for="language">Language</label>
+      <label for="language">Lenguaje</label>
       <input type="text" id="language" pInputText class="p-inputtext" formControlName="language">
     </div>
   
