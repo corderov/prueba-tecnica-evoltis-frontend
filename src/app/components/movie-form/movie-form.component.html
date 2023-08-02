@@ -2,16 +2,16 @@
   <div class="custom-button">
     <p-button type="button" icon="pi pi-arrow-left" (click)="goBack()" styleClass="p-button-secondary"></p-button>
   </div>
-  <p-card header="{{ movieId ? 'Editar Pelicula' : 'Nueva Pelicula' }}" class="custom-card">
+  <p-card header="{{ mode === 'edit' ? 'Editar Película' : ( mode == 'create' ? 'Nueva Película' : 'Película' ) }}" class="custom-card">
     <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" class="custom-form">
       <div class="custom-p-field">
-        <label for="title">Titulo*</label>
+        <label for="title">Título*</label>
         <input type="text" id="title" pInputText class="p-inputtext" placeholder="Ingrese el titulo" formControlName="title" required>
 
         </div>
     
       <div class="custom-p-field">
-        <label for="genre">Genero*</label>
+        <label for="genre">Género*</label>
         <input type="text" id="genre" pInputText class="p-inputtext" placeholder="Ingrese el genero" formControlName="genre" required>
       </div>
     
@@ -27,26 +27,26 @@
     
       <div class="custom-p-field">
         <label for="synopsis">Sinopsis</label>
-        <textarea id="synopsis" pInputTextarea [autoResize]="true" cols="30"  placeholder="Ingrese la sinopsis"  formControlName="synopsis"></textarea>
+        <textarea id="synopsis" pInputTextarea [autoResize]="true" cols="30"  [placeholder]="mode !== 'read' ? 'Ingrese la sinopsis' : '-'"  formControlName="synopsis"></textarea>
       </div>
     
       <div class="custom-p-field">
-        <label for="duration">Duracion*</label>
+        <label for="duration">Duración*</label>
         <input type="number" id="duration" pInputText class="p-inputtext" placeholder="Ingrese la duracion" formControlName="duration" required>
       </div>
     
       <div class="custom-p-field">
         <label for="country">Pais</label>
-        <input type="text" id="country" pInputText class="p-inputtext" placeholder="Ingrese el pais"  formControlName="country">
+        <input type="text" id="country" pInputText class="p-inputtext" [placeholder]="mode !== 'read' ? 'Ingrese el pais' : '-'"  formControlName="country">
       </div>
     
       <div class="custom-p-field">
         <label for="language">Lenguaje</label>
-        <input type="text" id="language" pInputText class="p-inputtext" placeholder="Ingrese el lenguaje"  formControlName="language">
+        <input type="text" id="language" pInputText class="p-inputtext" [placeholder]="mode !== 'read' ? 'Ingrese el lenguaje' : '-'"  formControlName="language">
       </div>
     
       <p-footer style="align-self: flex-end;">
-        <button type="submit" pButton label="{{ movieId ? 'Guardar Cambios' : 'Crear' }}" [disabled]="!movieForm.valid" ></button>
+        <button type="submit" *ngIf="mode != 'read'" pButton label="{{ mode === 'edit' ? 'Guardar Cambios' : 'Crear' }}" [disabled]="!movieForm.valid" ></button>
       </p-footer>
     </form>
     <p-messages></p-messages>

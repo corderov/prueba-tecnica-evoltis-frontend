@@ -3,7 +3,7 @@
   <p-table [value]="movies$ | async" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['title','genre']">
     <ng-template pTemplate="caption">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 class="m-0">Movies</h2>
+        <h2 class="m-0">Películas</h2>
         <div class="flex align-items-center">
             <button pButton pRipple icon="pi pi-plus" class="p-button-rounded" (click)="redirectToAddForm()"></button>
         </div>
@@ -13,19 +13,19 @@
         <tr>
           <th style="min-width:15rem">
             <div style="display: flex; align-items: center;">
-              Titulo
+              Título
               <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
             </div>
           </th>
           <th style="min-width:15rem">
             <div style="display: flex; align-items: center;">
-              Genero
+              Género
               <p-columnFilter type="text" field="genre" display="menu"></p-columnFilter>
             </div>
           </th>
           <th pSortableColumn="director" style="width:20%">Director<p-sortIcon field="director"></p-sortIcon></th>
           <th pSortableColumn="year" style="width:20%">Año<p-sortIcon field="year"></p-sortIcon></th>
-          <th pSortableColumn="duration" style="width:20%">Duracion (min)<p-sortIcon field="duration"></p-sortIcon></th>
+          <th pSortableColumn="duration" style="width:20%">Duración (min)<p-sortIcon field="duration"></p-sortIcon></th>
           <th>Acciones</th> 
         </tr>
       </ng-template>

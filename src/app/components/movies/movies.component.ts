@@ -13,7 +13,7 @@ import { selectDeleteMovie, selectListMovies, selectLoading } from 'src/app/stat
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css'],
-  providers: [MoviesService, MessageService]
+  providers: [MessageService]
 })
 export class MoviesComponent implements OnInit {
   movies: Movie[] = []
@@ -37,6 +37,10 @@ export class MoviesComponent implements OnInit {
   
   }
 
+  changeMode(newMode: 'read' | 'edit' | 'create') {
+    this.moviesService.setMode(newMode);
+  }
+
 
   deleteMovie(movie: Movie) {
     this.moviesService.deleteMovie(movie).subscribe( {
@@ -53,16 +57,20 @@ export class MoviesComponent implements OnInit {
   }
 
   redirectToAddForm() {
+    this.changeMode("create")
     this.router.navigateByUrl('/add-movie');
   }
 
   redirectToReadForm(movieId: number) {
+    this.changeMode("read")
     this.router.navigate(['movie', movieId]);
   }
 
   redirectToEditForm(movieId: number) {
+    this.changeMode("edit")
     this.router.navigate(['edit-movie', movieId]);
   }
+
 
 
 }

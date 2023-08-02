@@ -8,6 +8,16 @@ import { Movie } from 'src/app/models/movie';
 })
 export class MoviesService {
   private apiUrl :string;
+  private _mode: 'read' | 'edit' | 'create' = 'read';
+
+  get mode(): 'read' | 'edit' | 'create' {
+    return this._mode;
+  }
+
+  setMode(mode: 'read' | 'edit' | 'create') {
+    this._mode = mode;
+  }
+  
   constructor(private http: HttpClient) {
     this.apiUrl = 'https://localhost:7129/api/Movies';
    }

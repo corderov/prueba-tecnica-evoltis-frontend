@@ -12,12 +12,14 @@ import { AppState } from 'src/app/state/app.state';
   selector: 'app-movie-form',
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.css'],
-  providers: [MoviesService, MessageService]
+  providers: [MessageService]
 })
 export class MovieFormComponent {
   
   movieId!: number;
   movieForm!: FormGroup;
+  mode!: 'read' | 'edit' | 'create';
+
   constructor(
     private store:Store<AppState>, 
     private formBuilder: FormBuilder, 
@@ -41,6 +43,15 @@ export class MovieFormComponent {
       image: ['']
     });
 
+
+    this.mode = this.moviesService.mode;
+    console.log(this.moviesService.mode)
+    if (this.mode === 'read') {
+      this.movieForm.disable();
+    } else {
+      this.movieForm.enable();
+    }
+
   
 
     //Obtengo id que paso por la ruta
@@ -53,6 +64,8 @@ export class MovieFormComponent {
     });
 
   }
+
+
 
   getMovieById(movieId: number) {
     this.moviesService.getById(movieId).subscribe((movie) => {
