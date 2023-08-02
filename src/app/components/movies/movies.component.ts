@@ -5,9 +5,9 @@ import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/services/movies.service';
-import { loadMovies, loadedMovies } from 'src/app/state/actions/movies.actions';
+import { deleteMovie, loadMovies, loadedMovies } from 'src/app/state/actions/movies.actions';
 import { AppState } from 'src/app/state/app.state';
-import { selectListMovies, selectLoading } from 'src/app/state/selectors/movies.selectors';
+import { selectDeleteMovie, selectListMovies, selectLoading } from 'src/app/state/selectors/movies.selectors';
 
 @Component({
   selector: 'app-movies',
@@ -20,7 +20,11 @@ export class MoviesComponent implements OnInit {
   loading$: Observable<boolean> = new Observable()
   movies$: Observable<any> = new Observable()
 
-  constructor(private store:Store<AppState>, private moviesService: MoviesService, private router: Router, private messageService: MessageService) {}
+  constructor(
+    private store:Store<AppState>, 
+    private moviesService: MoviesService, 
+    private router: Router, 
+    private messageService: MessageService) {}
 
   
   
@@ -35,16 +39,16 @@ export class MoviesComponent implements OnInit {
 
 
   deleteMovie(movie: Movie) {
-    
-    this.moviesService.deleteMovie(movie).subscribe( 
-      (response: boolean) => {
+    this.moviesService.deleteMovie(movie).subscribe( {
+      next: () => {
         this.messageService.add({severity:'success', summary:`Pelicula eliminada con exito!`});
-        this.movies = this.movies.filter((m) => m !== movie);
+        this.store.dispatch(deleteMovie({ movie: movie }));
+        this.movies$ = this.store.select(selectDeleteMovie)
       },
-      (error: Error) => {
+      error:(error: Error) => {
         this.messageService.add({ severity: 'error', summary: 'Error al actualizar película' });
       }
-     
+    }
     );
   }
 

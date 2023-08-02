@@ -1,5 +1,4 @@
 <div style="padding: 0px 20px;">
-  <p *ngIf="(loading$ | async)">Cargando...</p>
   <p-messages></p-messages>
   <p-table [value]="movies$ | async" [tableStyle]="{ 'min-width': '40rem' }" [globalFilterFields]="['title','genre']">
     <ng-template pTemplate="caption">
@@ -30,6 +29,7 @@
           <th>Acciones</th> 
         </tr>
       </ng-template>
+      <p-progressSpinner *ngIf="(loading$ | async)"></p-progressSpinner>
       <ng-template pTemplate="body" let-movie>
         <tr>
           <td>{{ movie.title }}</td>

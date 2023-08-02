@@ -21,5 +21,5 @@ export const updateMovie = createAction(
 
 export const deleteMovie = createAction(
   '[Movie] Delete Movie',
-  props<{ id: number }>()
+  props<{ movie: Movie }>()
 );

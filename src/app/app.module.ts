@@ -9,6 +9,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 //Redux
 import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from './state/app.state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 //Components
 import { MoviesComponent } from './components/movies/movies.component';
@@ -22,10 +25,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessagesModule } from 'primeng/messages';
-import { moviesReducer } from './state/reducers/movies.reducers';
-import { ROOT_REDUCERS } from './state/app.state';
-
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -44,6 +44,7 @@ import { ROOT_REDUCERS } from './state/app.state';
 
     //Redux
     StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({name: 'TEST'}),
     
     TableModule,
     ButtonModule,
@@ -52,6 +53,7 @@ import { ROOT_REDUCERS } from './state/app.state';
     InputTextModule,
     InputNumberModule,
     MessagesModule,
+    ProgressSpinnerModule,
   ],
   exports: [],
   bootstrap: [AppComponent]

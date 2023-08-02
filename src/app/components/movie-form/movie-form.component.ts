@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { Movie } from 'src/app/models/movie';
 import { MoviesService } from 'src/app/services/movies.service';
+import { addMovie, updateMovie } from 'src/app/state/actions/movies.actions';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'app-movie-form',
@@ -15,7 +18,13 @@ export class MovieFormComponent {
   
   movieId!: number;
   movieForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private moviesService: MoviesService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) {}
+  constructor(
+    private store:Store<AppState>, 
+    private formBuilder: FormBuilder, 
+    private moviesService: MoviesService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private messageService: MessageService) {}
 
 
   ngOnInit() {
@@ -55,11 +64,13 @@ export class MovieFormComponent {
     if (this.movieForm.valid) {
       const newMovie: Movie = this.movieForm.value;
       if (this.movieId) {
+
         //Actualizando pelicula
         newMovie.id = this.movieId; 
         this.moviesService.updateMovie(newMovie).subscribe({
-          next: () => {
+          next: (response: Movie) => {
             this.messageService.add({severity:'success', summary:`Pelicula ${newMovie.title} actualizada con exito!`});
+            this.store.dispatch(updateMovie({movie: response}))
           },
           error:(error: Error) => {
             this.messageService.add({ severity: 'error', summary: `Error al actualizar película ${newMovie.title}` });
@@ -67,10 +78,12 @@ export class MovieFormComponent {
         } 
         );
       } else {
+
         //Creando nueva pelicula
         this.moviesService.addMovie(newMovie).subscribe({
           next: (response: Movie) => {
             this.messageService.add({severity:'success', summary:'Pelicula creada con exito!'});
+            this.store.dispatch(addMovie({movie: response}))
             this.router.navigateByUrl('/movies')
           },
           error: (error: Error) => {
