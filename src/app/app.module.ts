@@ -11,6 +11,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { StoreModule } from '@ngrx/store';
 import { ROOT_REDUCERS } from './state/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { MovieEffects } from './state/effects/movies.effects';
 
 
 //Components
@@ -45,6 +47,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     //Redux
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({name: 'TEST'}),
+    EffectsModule.forRoot([MovieEffects]),
     
     TableModule,
     ButtonModule,
@@ -54,6 +57,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     InputNumberModule,
     MessagesModule,
     ProgressSpinnerModule,
+    
   ],
   exports: [],
   bootstrap: [AppComponent]

@@ -31,8 +31,8 @@ export class MoviesComponent implements OnInit {
   ngOnInit () : void {
     this.loading$ = this.store.select(selectLoading)
     this.store.dispatch(loadMovies())
-    this.moviesService.getAllMovies().subscribe(
-      (result : Movie[]) => this.store.dispatch(loadedMovies({movies:result})));
+    // this.moviesService.getAllMovies().subscribe(
+    //   (result : Movie[]) => this.store.dispatch(loadedMovies({movies:result})));
     this.movies$ = this.store.select(selectListMovies)
   
   }
